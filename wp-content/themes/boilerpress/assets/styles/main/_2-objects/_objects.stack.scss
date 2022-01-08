@@ -1,0 +1,29 @@
+/*******************************************************************************
+//
+//
+//
+//  #STACK
+//
+//
+//
+*******************************************************************************/
+
+.o-stack,
+%o-stack {
+    --space: var(--spacer-base);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    & * {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    & > * {
+        &:not(:last-child) {
+            margin-bottom: var(--space);
+        }
+    }
+}

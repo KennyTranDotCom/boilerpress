@@ -1,0 +1,9 @@
+{
+    "braceStyle": "1tbs",
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "es5",
+    "useTabs": false,
+    "plugins": ["./node_modules/prettier-plugin-twig-melody"]
+}

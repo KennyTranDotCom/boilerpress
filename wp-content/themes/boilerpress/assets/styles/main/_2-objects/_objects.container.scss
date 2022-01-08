@@ -1,0 +1,42 @@
+/*******************************************************************************
+//
+//
+//
+//  #CONTAINER
+//
+//
+//
+*******************************************************************************/
+
+@use 'sass:math';
+
+.o-container {
+    @include clearfix();
+
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: math.div($grid-gap, 2);
+    padding-right: math.div($grid-gap, 2);
+}
+
+@if $grid-fluid == 'false' {
+    @media (min-width: 768px) {
+        .o-container {
+            width: 738px;
+        }
+    }
+
+    @media (min-width: 980px) {
+        .o-container {
+            width: 950px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .o-container {
+            width: 1170px;
+        }
+    }
+}

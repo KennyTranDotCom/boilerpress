@@ -1,0 +1,23 @@
+//******************************************************************************
+//
+//
+//
+//  #BREAKPOINTS
+//
+//
+//
+//******************************************************************************
+
+$breakpoints: (
+    xs: 320px,
+    sm: 480px,
+    md: 768px,
+    lg: 960px,
+    xl: 1400px,
+);
+
+:root {
+    @each $breakpointName, $breakpoint in $breakpoints {
+        --breakpoint-#{"" + $breakpointName}: #{$breakpoint};
+    }
+}

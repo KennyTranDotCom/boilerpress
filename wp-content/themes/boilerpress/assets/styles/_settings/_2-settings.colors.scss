@@ -1,0 +1,36 @@
+//******************************************************************************
+//
+//
+//
+//  #COLORS
+//
+//
+//
+//******************************************************************************
+
+$colors: (
+    black: #000,
+    blue: blue,
+    grey: #999,
+    white: #fff,
+);
+
+$colors-theme-default: (
+    primary: map-get($colors, white),
+    on-primary: map-get($colors, black),
+    secondary: map-get($colors, black),
+    on-secondary: map-get($colors, white),
+    accent: map-get($colors, blue),
+    background: map-get($colors, white),
+    on-background: map-get($colors, black)
+);
+
+:root {
+    @each $colorName, $color in $colors {
+        --color-#{"" + $colorName}: #{$color};
+    }
+
+    @each $colorName, $color in $colors-theme-default {
+        --color-#{"" + $colorName}: #{$color};
+    }
+}

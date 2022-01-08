@@ -1,0 +1,10 @@
+{% extends 'bases.default.twig' %}
+
+{% block content %}
+    {% for post in posts %}
+        {% include [
+            'components.tease-' ~ post.post_type ~ '.twig',
+            'components.tease.twig'
+        ] %}
+    {% endfor %}
+{% endblock %}

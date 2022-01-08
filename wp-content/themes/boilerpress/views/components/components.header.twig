@@ -1,0 +1,18 @@
+<header class="c-header">
+    <div class="o-container">
+        <div class="o-grid">
+            <div class="o-grid__row">
+                <div class="o-grid__col">
+                    <h1>
+                        <a href="{{ site.url }}">{{ site.name }}</a>
+                    </h1>
+                    <nav class="c-nav">
+                        {% include 'components.menu.twig' with {
+                            items: menu_header.get_items
+                        } %}
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
