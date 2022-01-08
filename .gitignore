@@ -13,6 +13,7 @@ node_modules
 /*
 !.gitignore
 !README.md
+!wordpress.txt
 !wp-content/
 !wp-config.php
 !wp-config.env.php
