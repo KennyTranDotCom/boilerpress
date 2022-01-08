@@ -1,0 +1,17 @@
+{% include 'partials.head.twig' %}
+<body class="{{ body_class }}">
+    <a href="#main" class="c-skip-to-content">Skip To Content</a>
+
+    {% include 'components.header.twig' %}
+
+    <main id="main" class="c-main">
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+    {% include 'components.footer.twig' %}
+
+    {{ function('wp_footer') }}
+</body>
+{% include 'partials.foot.twig' %}

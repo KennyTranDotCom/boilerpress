@@ -1,0 +1,36 @@
+/*******************************************************************************
+//
+//
+//
+//  #BUTTON
+//
+//
+//
+*******************************************************************************/
+
+.c-button {
+    padding: em(12px);
+    display: inline-block;
+    color: var(--color-on-secondary);
+    font-size: map-get($font-sizes, base);
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    background: var(--color-secondary);
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+
+    &:active,
+    &:focus,
+    &:hover {
+        filter: brightness(1.2);
+        text-decoration: none;
+    }
+
+    &.disabled,
+    &[disabled] {
+        cursor: default;
+        opacity: 0.5;
+    }
+}

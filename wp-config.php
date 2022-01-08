@@ -81,6 +81,26 @@ define('EMPTY_TRASH_DAYS', 7);
 /** Set number of revision posts allowed */
 define('WP_POST_REVISIONS', 10);
 
+/** Define theme variables */
+define('TEMPLATE_URL', WP_SITEURL . '/wp-content/themes/boilerpress');
+define('ASSETS_URL', TEMPLATE_URL . '/assets');
+define('STYLES_URL', ASSETS_URL . '/styles');
+define('VIDEOS_URL', ASSETS_URL . '/videos');
+
+switch(WP_ENV) {
+    case 'development':
+        define('IMAGES_URL', ASSETS_URL . '/images');
+        break;
+
+    case 'staging':
+        define('IMAGES_URL', ASSETS_URL . '/images/compressed');
+        break;
+
+    case 'production':
+        default:
+        define('IMAGES_URL', ASSETS_URL . '/images/compressed');
+}
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */

@@ -1,0 +1,19 @@
+/*******************************************************************************
+//
+//
+//
+//  #BACKGROUND COLOR
+//
+//
+//
+*******************************************************************************/
+
+$background-color: true;
+
+@if $background-color {
+    @each $colorName, $color in $colors {
+        .u-bgc-#{'' + $colorName} {
+            background-color: $color !important;
+        }
+    }
+}

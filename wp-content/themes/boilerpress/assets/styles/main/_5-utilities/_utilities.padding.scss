@@ -1,0 +1,70 @@
+/*******************************************************************************
+//
+//
+//
+//  #PADDING
+//
+//
+//
+*******************************************************************************/
+
+$padding: true;
+$padding-breakpoints: (xs, sm, md, lg, xl);
+
+@if $padding {
+    @each $size, $length in $spacers {
+        .u-p-#{$size} {
+            padding: $length !important;
+        }
+
+        .u-pt-#{$size},
+        .u-py-#{$size} {
+            padding-top: $length !important;
+        }
+
+        .u-pr-#{$size},
+        .u-px-#{$size} {
+            padding-right: $length !important;
+        }
+
+        .u-pb-#{$size},
+        .u-py-#{$size} {
+            padding-bottom: $length !important;
+        }
+
+        .u-pl-#{$size},
+        .u-px-#{$size} {
+            padding-left: $length !important;
+        }
+    }
+
+    @each $padding-breakpoint in $padding-breakpoints {
+        @include mq-at-least($padding-breakpoint) {
+            @each $size, $length in $spacers {
+                .#{$padding-breakpoint}\:u-p-#{$size} {
+                    padding: $length !important;
+                }
+
+                .#{$padding-breakpoint}\:u-pt-#{$size},
+                .#{$padding-breakpoint}\:u-py-#{$size} {
+                    padding-top: $length !important;
+                }
+
+                .#{$padding-breakpoint}\:u-pr-#{$size},
+                .#{$padding-breakpoint}\:u-px-#{$size} {
+                    padding-right: $length !important;
+                }
+
+                .#{$padding-breakpoint}\:u-pb-#{$size},
+                .#{$padding-breakpoint}\:u-py-#{$size} {
+                    padding-bottom: $length !important;
+                }
+
+                .#{$padding-breakpoint}\:u-pl-#{$size},
+                .#{$padding-breakpoint}\:u-px-#{$size} {
+                    padding-left: $length !important;
+                }
+            }
+        }
+    }
+}
