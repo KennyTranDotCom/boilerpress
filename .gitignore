@@ -1,0 +1,7 @@
+# OS X
+._*
+.DS_Store
+
+.npmrc
+node_modules
+build
