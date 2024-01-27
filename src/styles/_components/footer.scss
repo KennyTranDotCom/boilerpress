@@ -1,0 +1,21 @@
+/*******************************************************************************
+//
+//
+//
+//  #FOOTER
+//
+//
+//
+*******************************************************************************/
+
+@use '../_tools/functions' as functions;
+@use '../_tools/mixins' as mixins;
+
+.c-footer {
+    padding: 100px 0;
+
+    .c-footer__layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+    }
+}
