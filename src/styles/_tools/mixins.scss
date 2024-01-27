@@ -1,0 +1,416 @@
+//******************************************************************************
+//
+//
+//
+//  #MIXINS
+//
+//  CONTENTS
+//    #CLAMP
+//    #FLUID
+//    #HIDE
+//    #HIDE TEXT
+//    #LAST CHILD
+//    #MEDIA QUERY AT LEAST
+//    #MEDIA QUERY BETWEEN
+//    #MEDIA QUERY FlUID
+//    #MEDIA QUERY GRADUAL
+//    #MEDIA QUERY UNTIL
+//    #MEDIA QUERY RETINA
+//    #PLACEHOLDER
+//    #QUANTITY QUERY
+//    #REM FALLBACK
+//
+//
+//
+//******************************************************************************
+
+@use 'sass:math';
+
+@use '../_settings/settings.scss' as breakpoints;
+@use 'functions' as functions;
+
+//******************************************************************************
+//
+//  #CLAMP
+//  -> Generate clamp
+//
+//******************************************************************************
+
+@mixin clamp(
+    $property,
+    $min-size,
+    $max-size,
+    $min-breakpoint: map-get(settings.$breakpoints, xs),
+    $max-breakpoint: map-get(settings.$breakpoints, xl),
+    $unit: vw
+) {
+    $slope: math.div($max-size - $min-size, $max-breakpoint - $min-breakpoint);
+    $slope-to-unit: $slope * 100;
+    $intercept-rem: functions.rem($min-size - $slope * $min-breakpoint);
+    $min-size-rem: functions.rem($min-size);
+    $max-size-rem: functions.rem($max-size);
+
+    #{$property}: clamp(
+        #{$min-size-rem},
+        #{$slope-to-unit}#{$unit} + #{$intercept-rem},
+        #{$max-size-rem}
+    );
+}
+
+//******************************************************************************
+//
+//  #FLUID
+//  -> Generate fluid sizes
+//
+//******************************************************************************
+
+@mixin fluid(
+    $property,
+    $min-size,
+    $max-size,
+    $min-breakpoint: map-get(settings.$breakpoints, sm),
+    $max-breakpoint: map-get(settings.$breakpoints, 2xl),
+    $unit: vw
+) {
+    #{$property}: #{$min-size};
+
+    @media only screen and (min-width: #{$min-breakpoint}) {
+        #{$property}: calc(
+            #{$min-size} + #{functions.strip-unit($max-size - $min-size)} *
+                (100vw - #{$min-breakpoint}) /
+                (#{functions.strip-unit($max-breakpoint - $min-breakpoint)})
+        );
+    }
+
+    @media only screen and (min-width: #{$max-breakpoint}) {
+        #{$property}: #{$max-size};
+    }
+}
+
+//******************************************************************************
+//
+//  #HIDE
+//  -> Hide element from view
+//
+//******************************************************************************
+
+@mixin hide() {
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    position: absolute;
+    border: 0;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+//******************************************************************************
+//
+//  #HIDE TEXT
+//  -> Hide text
+//
+//******************************************************************************
+
+@mixin hide-text() {
+    overflow: hidden;
+    text-indent: 150%;
+    white-space: nowrap;
+}
+
+//******************************************************************************
+//
+//  #LAST CHILD
+//  -> Last child of element
+//
+//******************************************************************************
+
+@mixin last-child() {
+    & > *:last-child,
+    & > *:last-child > *:last-child,
+    & > *:last-child > *:last-child > *:last-child {
+        @content;
+    }
+}
+
+//******************************************************************************
+//
+//  #MEDIA QUERY AT LEAST
+//
+//******************************************************************************
+
+@mixin mq-at-least($breakpoint-size, $viewport: width) {
+    @if type-of($breakpoint-size) == number {
+        @media screen and (min-#{$viewport}: functions.em($breakpoint-size)) {
+            @content;
+        }
+    } @else {
+        $breakpoint-width: map-get(breakpoints.$breakpoints, $breakpoint-size);
+
+        @media screen and (min-#{$viewport}: functions.em($breakpoint-width)) {
+            @content;
+        }
+    }
+}
+
+//******************************************************************************
+//
+//  #MEDIA QUERY BETWEEN
+//
+//******************************************************************************
+
+@mixin mq-between(
+    $breakpoint-start-size,
+    $breakpoint-end-size,
+    $viewport: width
+) {
+    $breakpoint-start-width: null;
+    $breakpoint-end-width: null;
+
+    @if type-of($breakpoint-start-size) == number {
+        $breakpoint-start-width: $breakpoint-start-size;
+    } @else {
+        $breakpoint-start-width: map-get(
+            breakpoints.$breakpoints,
+            $breakpoint-start-size
+        );
+    }
+
+    @if type-of($breakpoint-end-size) == number {
+        $breakpoint-end-width: $breakpoint-end-size;
+    } @else {
+        $breakpoint-end-width: map-get(
+            breakpoints.$breakpoints,
+            $breakpoint-end-size
+        );
+    }
+
+    @media screen and (min-#{$viewport}: functions.em($breakpoint-start-width)) and (max-#{$viewport}: functions.em($breakpoint-end-width - 1px)) {
+        @content;
+    }
+}
+
+//******************************************************************************
+//
+//  #MEDIA QUERY FLUID
+//
+//******************************************************************************
+
+@mixin mq-fluid(
+    $properties,
+    $breakpoint-start-size,
+    $breakpoint-end-size,
+    $min-value,
+    $max-value
+) {
+    & {
+        @each $property in $properties {
+            #{$property}: $min-value;
+        }
+
+        @media screen and (min-width: $breakpoint-start-size) {
+            @each $property in $properties {
+                #{$property}: funcntions.calc-interpolation(
+                    $breakpoint-start-size,
+                    $min-value,
+                    $breakpoint-end-size,
+                    $max-value
+                );
+            }
+        }
+
+        @media screen and (min-width: $breakpoint-end-size) {
+            @each $property in $properties {
+                #{$property}: $max-value;
+            }
+        }
+    }
+}
+
+//******************************************************************************
+//
+//  #MEDIA QUERY GRADUAL
+//
+//******************************************************************************
+
+@mixin mq-gradual(
+    $property,
+    $breakpoint-start-size,
+    $start-value,
+    $breakpoint-end-size,
+    $end-value,
+    $increment-width
+) {
+    $breakpoint-start-width: map-get(
+        breakpoints.$breakpoints,
+        $breakpoint-start-size
+    );
+    $breakpoint-end-width: map-get(
+        breakpoints.$breakpoints,
+        $breakpoint-end-size
+    );
+
+    // Define number of increments, $increments
+    $increments: ceil(
+        math.div(
+            (
+                functions.strip-unit($breakpoint-end-width) - functions.strip-unit(
+                        $breakpoint-start-width
+                    )
+            ),
+            functions.strip-unit($increment-width)
+        )
+    );
+
+    // Define the difference between values
+    $value-diff: (
+        functions.strip-unit($end-value) - functions.strip-unit($start-value)
+    );
+
+    // The amount of difference, incrementally
+    $value-increment: math.div($value-diff, $increments);
+
+    // Apply adjusted values
+    @for $i from 0 to $increments {
+        $increment-point: $breakpoint-start-width + $i * $increment-width;
+
+        @media (min-width: functions.em($increment-point)) {
+            #{$property}: $start-value + ($i * $value-increment);
+        }
+    }
+
+    @media (min-width: functions.em($breakpoint-end-width)) {
+        #{$property}: $end-value;
+    }
+}
+
+//******************************************************************************
+//
+//  #MEDIA QUERY UNTIL
+//
+//******************************************************************************
+
+@mixin mq-until($breakpoint-size, $viewport: width) {
+    @if type-of($breakpoint-size) == number {
+        @media screen and (max-#{$viewport}: functions.em($breakpoint-size - 1)) {
+            @content;
+        }
+    } @else {
+        $breakpoint-width: map-get(breakpoints.$breakpoints, $breakpoint-size);
+
+        @media screen and (max-#{$viewport}: functions.em($breakpoint-width - 1)) {
+            @content;
+        }
+    }
+}
+
+//******************************************************************************
+//
+//  #MEDIA QUERY RETINA
+//
+//******************************************************************************
+
+@mixin mq-retina() {
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        @content;
+    }
+}
+
+//******************************************************************************
+//
+//  #PLACEHOLDER
+//  -> Input placeholder selectors
+//
+//******************************************************************************
+
+@mixin placeholder() {
+    ::-webkit-input-placeholder {
+        @content;
+    }
+    ::-moz-placeholder {
+        @content;
+    }
+    :-ms-input-placeholder {
+        @content;
+    }
+    input:-moz-placeholder {
+        @content;
+    }
+}
+
+//******************************************************************************
+//
+//  #QUANTITY QUERY
+//  -> Quantity query
+//
+//******************************************************************************
+
+@mixin qq($arg) {
+    @if type-of($arg) == number {
+        &:nth-last-child(#{$arg}):first-child,
+        &:nth-last-child(#{$arg}):first-child ~ & {
+            @content;
+        }
+    } @else if str-slice($arg, 1, 1) == '<' {
+        @if str-slice($arg, 2, 2) == '=' {
+            $arg: functions.number(str-slice($arg, 3));
+
+            &:nth-last-child(-n + #{$arg}):first-child,
+            &:nth-last-child(-n + #{$arg}):first-child ~ & {
+                @content;
+            }
+        } @else {
+            $arg: functions.number(str-slice($arg, 2));
+
+            &:nth-last-child(-n + #{$arg - 1}):first-child,
+            &:nth-last-child(-n + #{$arg - 1}):first-child ~ & {
+                @content;
+            }
+        }
+    } @else if str-slice($arg, 1, 1) == '>' {
+        @if str-slice($arg, 2, 2) == '=' {
+            $arg: functions.number(str-slice($arg, 3));
+
+            &:nth-last-child(n + #{$arg}),
+            &:nth-last-child(n + #{$arg}) ~ & {
+                @content;
+            }
+        } @else {
+            $arg: functions.number(str-slice($arg, 2));
+
+            &:nth-last-child(n + #{$arg + 1}),
+            &:nth-last-child(n + #{$arg + 1}) ~ & {
+                @content;
+            }
+        }
+    }
+}
+
+//******************************************************************************
+//
+//  #REM FALLBACK
+//  -> px to rem with px fallback
+//     for properties
+//
+//******************************************************************************
+
+@mixin rem-fallback($property, $values, $important: false) {
+    $pxValues: ();
+    $remValues: ();
+
+    @if ($important == true) {
+        $important: !important;
+    } @else if ($important == false) {
+        $important: null;
+    } @else {
+        @error "`#{$important}` needs to be `true` or `false`.";
+    }
+
+    @each $value in $values {
+        $pxValues: append($pxValues, $value);
+        $remValues: append($remValues, functions.rem($value));
+    }
+
+    #{$property}: $pxValues $important;
+    #{$property}: $remValues $important;
+}
