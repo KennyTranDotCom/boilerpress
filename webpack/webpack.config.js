@@ -41,21 +41,24 @@ const BOILERPRESS_SETTINGS_SRC = {
         },
 
         scripts: {
-            include: BOILERPRESS_PATHS.scripts,
-            entry: BOILERPRESS_PATHS.scripts + '/script.js',
+            include:  BOILERPRESS_PATHS.scripts,
+            entry: {
+                'theme': BOILERPRESS_PATHS.scripts + '/theme.js',
+                'editor': BOILERPRESS_PATHS.scripts + '/editor.js',
+            },
             output: BOILERPRESS_PATHS.directory,
-            filename: 'build/script.min.js',
+            filename: 'build/[name].min.js',
             rules: {
                 test: /\.m?js$/,
             },
         },
-
+    
         styles: {
-            filename: 'build/style.min.css',
+            filename: 'build/[name].min.css',
             rules: {
                 test: /\.s[ac]ss$/i,
             },
-        },
+        }
     },
 };
 

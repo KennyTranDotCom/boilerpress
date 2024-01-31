@@ -1,6 +1,6 @@
 import Header from './_components/header';
 
-import '../styles/style.scss';
+import '../styles/theme.scss';
 
 window.addEventListener('load', () => {
     new Header();
