@@ -98,18 +98,20 @@
     dl,
     ol,
     ul {
-        padding: 0;
-        margin: 0;
+        margin-block-start: 0;
+        margin-block-end: 0;
 
         & + * {
             margin-block-start: var(--flow-space, 1em);
         }
     }
 
+    .wp-block-buttons,
     blockquote,
-    figure {
-        padding: 0;
-        margin: 0;
+    figure,
+    pre {
+        margin-block-start: 0;
+        margin-block-end: 0;
 
         &:not(:first-child) {
             margin-block-start: var(--flow-space, 2rem);
@@ -118,6 +120,18 @@
         & + *:not(div) {
             margin-block-start: var(--flow-space, 2rem);
         }
+    }
+
+    h1,
+    h2,
+    h3 {
+        --flow-space: 1.5em;
+    }
+
+    h4,
+    h5,
+    h6 {
+        --flow-space: 1em;
     }
 
     .wp-block-buttons {
