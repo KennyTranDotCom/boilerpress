@@ -9,15 +9,15 @@ function boilerpress_blocks_init() {
 add_action( 'init', 'boilerpress_blocks_init' );
 
 // Add block category
-function boilerpress_block_category( $categories, $post ) {
+function boilerpress_block_categories( $categories, $post ) {
     return array_merge(
         array(
             array(
-                'slug' => 'boilerpress-blocks',
+                'slug' => 'boilerpress',
                 'title' => 'BoilerPress',
             ),
         ),
         $categories
     );
 }
-add_filter( 'block_categories_all', 'boilerpress_block_category', 10, 2);
+add_filter( 'block_categories_all', 'boilerpress_block_categories', 10, 2);

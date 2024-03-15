@@ -13,11 +13,12 @@
         "stylelint:fix": "stylelint src/styles/**/*.scss --fix",
         "prettier": "prettier src/styles/**/*.scss src/scripts/**/*.js webpack/**/*.js",
         "prettier:fix": "prettier --write src/styles/**/*.scss src/scripts/**/*.js webpack/**/*.js",
-        "start:blocks": "wp-scripts start --webpack-copy-php --webpack-src-dir=src/blocks --output-path=build/blocks",
-        "build:blocks": "wp-scripts build --webpack-copy-php --webpack-src-dir=src/blocks --output-path=build/blocks",
-        "start:theme": "yarn run development:watch",
-        "build:theme": "webpack --config webpack/webpack.config.js --env NODE_ENV=production --env production",
-        "build:all": "yarn run build:theme && yarn run build:blocks"
+        "blocks:start": "wp-scripts start --webpack-copy-php --webpack-src-dir=src/blocks --output-path=build/blocks",
+        "blocks:build": "wp-scripts build --webpack-copy-php --webpack-src-dir=src/blocks --output-path=build/blocks",
+        "theme:start": "yarn run development:watch",
+        "theme:build": "webpack --config webpack/webpack.config.js --env NODE_ENV=production --env production",
+        "start": "yarn run theme:start && yarn run blocks:start",
+        "build": "yarn run theme:build && yarn run blocks:build"
     },
     "devDependencies": {
         "@babel/core": "^7.23.7",
