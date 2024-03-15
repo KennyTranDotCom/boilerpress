@@ -45,6 +45,7 @@ const BOILERPRESS_SETTINGS_SRC = {
             entry: {
                 'theme': BOILERPRESS_PATHS.scripts + '/theme.js',
                 'editor': BOILERPRESS_PATHS.scripts + '/editor.js',
+                'block-editor': BOILERPRESS_PATHS.scripts + '/block-editor.js',
             },
             output: BOILERPRESS_PATHS.directory,
             filename: 'build/[name].min.js',

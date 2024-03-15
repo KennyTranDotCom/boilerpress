@@ -1,0 +1,52 @@
+//******************************************************************************
+//
+//
+//
+//  #BLOCK EDITOR
+//
+//
+//
+//******************************************************************************
+
+@use '_tools/functions' as functions;
+@use '_tools/mixins' as mixins;
+
+.editor-styles-wrapper {
+    /* Set Post Title width to match the content width */
+    .edit-post-visual-editor__post-title-wrapper {
+        .editor-post-title {
+            max-width: calc(
+                var(--wp--style--global--content-size) - var(
+                        --wp--style--root--padding-right
+                    ) - var(--wp--style--root--padding-left)
+            );
+        }
+    }
+}
+
+.post-type-post.editor-styles-wrapper {
+    padding-right: var(--wp--style--root--padding-right);
+    padding-left: var(--wp--style--root--padding-left);
+
+    .edit-post-visual-editor__post-title-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+        margin-bottom: var(--wp--preset--spacing--2-x-large);
+
+        .editor-post-title {
+            max-width: 20ch;
+            margin-right: auto!important;
+            margin-left: auto!important;
+            font-size: var(--wp--preset--font-size--4-x-large);
+            text-align: center;
+        }
+    }
+
+    .is-root-container {
+        --gap: clamp(1rem, 6vw, 3rem);
+
+        max-width: min(80ch, 100% - var(--gap) * 2);
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
