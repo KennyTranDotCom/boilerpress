@@ -1,0 +1,48 @@
+/*******************************************************************************
+//
+//
+//
+//  #POST
+//
+//
+//
+*******************************************************************************/
+
+@use '../_tools/functions' as functions;
+@use '../_tools/mixins' as mixins;
+
+.c-post {
+    max-width: 1280px;
+    margin-right: auto;
+    margin-left: auto;
+
+    .c-post__header {
+        margin-bottom: var(--wp--preset--spacing--2-x-large);
+
+        .c-post__title {
+            font-size: var(--wp--preset--font-size--4-x-large);
+
+            @include mixins.mq-at-least(md) {
+                max-width: 20ch;
+                margin-right: auto;
+                margin-left: auto;
+                text-align: center;
+            }
+        }
+    }
+
+    .c-post__content {
+        --gap: clamp(1rem, 6vw, 3rem);
+
+        @include mixins.mq-at-least(md) {
+            max-width: min(80ch, 100% - var(--gap) * 2);
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .hljs {
+            padding: 1.5em 0.5em;
+            border-radius: 8px;
+        }
+    }
+}
