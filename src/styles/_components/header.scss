@@ -12,20 +12,14 @@
 @use '../_tools/mixins' as mixins;
 
 .c-header {
-    padding-top: 20px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: var(--bp-z-index-header);
-
-    @include mixins.mq-at-least(md) {
-        padding-top: 40px;
-    }
+    padding-top: var(--wp--preset--spacing--2-x-large);
 
     .c-header__layout {
         display: flex;
         align-items: center;
+        max-width: var(--wp--style--global--content-size);
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .c-header__logo {
@@ -110,7 +104,7 @@
 
         a {
             font-size: 40px;
-            font-weight: normal;
+            font-weight: 600;
             text-decoration: none;
             transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
 

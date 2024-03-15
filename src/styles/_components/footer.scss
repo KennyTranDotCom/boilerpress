@@ -12,10 +12,103 @@
 @use '../_tools/mixins' as mixins;
 
 .c-footer {
-    padding: 100px 0;
+    padding-top: var(--wp--preset--spacing--4-x-large);
+    padding-bottom: var(--wp--preset--spacing--large);
+
+    & > section {
+        max-width: var(--wp--style--global--content-size);
+        margin-right: auto;
+        margin-left: auto;
+
+        &:not(:first-child) {
+            border-top: 1px solid var(--wp--preset--color--grey-dark);
+            padding-top: var(--wp--preset--spacing--x-large);
+            margin-top: var(--wp--preset--spacing--x-large);
+        }
+    }
 
     .c-footer__layout {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
+        gap: var(--wp--custom--layout--block-gap);
+
+        @include mixins.mq-at-least(lg) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @include mixins.mq-at-least(xl) {
+            grid-template-columns: 2fr 1fr;
+        }
+
+        &.c-footer__layout--newsletter {
+            align-items: flex-end;
+        }
+    }
+
+    .c-footer__legal {
+        font-size: var(--wp--preset--font-size--small);
+        text-align: center;
+    }
+
+    .c-footer__logo {
+        img {
+            width: 160px;
+        }
+    }
+
+    .c-footer__nav {
+        ul {
+            padding: 0;
+            margin-left: 0;
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    .c-footer__social {
+        margin-block-start: 1rem;
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        li {
+            margin-top: functions.rem(10px);
+            margin-bottom: functions.rem(10px);
+
+            &:not(:last-child) {
+                margin-right: var(--wp--preset--spacing--medium);
+            }
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: functions.rem(30);
+            height: functions.rem(30);
+            border-radius: 10px;
+            transition:
+                color 0.25s ease,
+                background-color 0.25s ease;
+            will-change: color, background-color;
+
+            &:hover {
+                svg {
+                    fill: var(--wp--custom--color--on-background);
+                }
+            }
+        }
+
+        svg {
+            fill: var(--wp--custom--color--on-background);
+            transition: fill 0.25s ease;
+        }
     }
 }

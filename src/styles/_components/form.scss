@@ -1,0 +1,21 @@
+/*******************************************************************************
+//
+//
+//
+//  #FORM
+//
+//
+//
+*******************************************************************************/
+
+@use '../_tools/functions' as functions;
+@use '../_tools/mixins' as mixins;
+
+.c-form {
+    .c-form__group {
+        &.c-form__group--inline {
+            display: flex;
+            gap: var(--wp--preset--spacing--10);
+        }
+    }
+}
