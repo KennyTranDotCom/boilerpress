@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "boilerpress/hero",
+    "version": "0.1.0",
+    "title": "Hero",
+    "category": "boilerpress",
+    "description": "Hero block",
+    "example": {},
+    "supports": {
+        "html": false
+    },
+    "textdomain": "boilerpress",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "render": "file:./render.php",
+    "style": "file:./style-index.css",
+    "viewScript": "file:./view.js",
+    "attributes": {
+        "imageId": {
+            "type": "number"
+        },
+        "imageUrl": {
+            "type": "string"
+        }
+    }
+}

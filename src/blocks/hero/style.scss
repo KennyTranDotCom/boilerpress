@@ -1,0 +1,42 @@
+@use '../../styles/_tools/functions' as functions;
+@use '../../styles/_tools/mixins' as mixins;
+
+.wp-block-boilerpress-hero {
+    .wp-block-boilerpress-hero__layout {
+        display: grid;
+        column-gap: var(--wp--preset--spacing--2-x-large);
+        row-gap: var(--wp--preset--spacing--x-large);
+
+        @include mixins.mq-at-least(md) {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+        }
+    }
+
+    .wp-block-boilerpress-hero__content {
+        @include mixins.mq-at-least(md) {
+            grid-area: 1 / 1 / 6 / 2;
+        }
+
+        p {
+            max-width: functions.rem(600px);
+        }
+    }
+
+    .wp-block-boilerpress-hero__image {
+        @include mixins.mq-at-least(md) {
+            grid-area: 2 / 2 / 7 / 3;
+            display: flex;
+            align-items: flex-end;
+            margin-right: var(--wp--custom--layout--padding-negative);
+        }
+
+        img {
+            @include mixins.mq-until(md) {
+                aspect-ratio: 16 / 9;
+                object-fit: cover;
+                object-position: left top;
+            }
+        }
+    }
+}
