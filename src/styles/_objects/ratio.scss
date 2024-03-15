@@ -1,0 +1,101 @@
+/*******************************************************************************
+//
+//
+//
+//  #RATIO
+//
+//
+//
+*******************************************************************************/
+
+@use 'sass:math';
+
+$ratios: (
+    // 55%
+    '20by11':
+        (
+            20: 11,
+        ),
+    // 56.25%
+    '16by9':
+        (
+            16: 9,
+        ),
+    // 65%
+    '20by13':
+        (
+            20: 13,
+        ),
+    // 75%
+    '4by3':
+        (
+            4: 3,
+        ),
+        // 100%
+    '1by1':
+    (
+        1: 1,
+    )
+);
+
+.o-ratio,
+%o-ratio {
+    display: block;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        padding-bottom: 100%;
+    }
+
+    .o-ratio__content,
+    & > embed,
+    & > iframe,
+    & > picture,
+    & > object {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        & > img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+        }
+    }
+
+    & > img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+    }
+
+    /***************************************************************************
+    //
+    //  VARIANTS
+    //
+    ***************************************************************************/
+
+    @each $ratio-name, $ratio-value in $ratios {
+        @each $antecedent, $consequent in $ratio-value {
+            &.o-ratio--#{$ratio-name} {
+                &::before {
+                    padding-bottom: (math.div($consequent, $antecedent)) * 100%;
+                }
+            }
+        }
+    }
+}

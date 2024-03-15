@@ -1,0 +1,35 @@
+/*******************************************************************************
+//
+//
+//
+//  #TABLE
+//
+//
+//
+*******************************************************************************/
+
+@use '../_tools/functions' as functions;
+@use '../_tools/mixins' as mixins;
+
+table {
+    border-bottom: 1px solid var(--wp--preset--color--white);
+    border-right: 1px solid var(--wp--preset--color--white);
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    overflow-x: auto;
+}
+
+th,
+td {
+    padding: functions.em(8px);
+    text-align: left;
+    border-top: 1px solid var(--wp--preset--color--white);
+    border-left: 1px solid var(--wp--preset--color--white);
+    vertical-align: middle;
+}
+
+caption {
+    padding: functions.em(8px);
+    border-bottom: 0;
+}

@@ -2,17 +2,19 @@
 //
 //
 //
-//  #BODY
+//  #IMAGE
 //
 //
 //
 *******************************************************************************/
 
-@use '../_tools/functions' as functions;
-@use '../_tools/mixins' as mixins;
+img,
+picture,
+svg {
+    display: block;
+}
 
-body {
-    min-height: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
+img {
+    max-width: 100%;
+    height: auto;
 }
