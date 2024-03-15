@@ -10,7 +10,8 @@
 
 @use '../_tools/functions' as functions;
 @use '../_tools/mixins' as mixins;
+@use '../_objects/layout' as layout;
 
 .c-main {
-    padding-top: clamp(50px, 20vw, 150px);
+    @include layout.layout();
 }

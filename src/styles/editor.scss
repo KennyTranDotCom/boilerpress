@@ -8,6 +8,17 @@
 //
 //******************************************************************************
 
+@use '_objects/layout' as layout;
+
 @import '_generic/**/*.scss';
 @import '_html/**/*.scss';
 @import '_objects/**/*.scss';
+
+/*******************************************************************************
+//  #EDITOR STYLES WRAPPER
+*******************************************************************************/
+.editor-styles-wrapper {
+    .is-root-container {
+        @include layout.layout();
+    }
+}

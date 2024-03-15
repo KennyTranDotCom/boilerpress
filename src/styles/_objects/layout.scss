@@ -1,0 +1,126 @@
+/*******************************************************************************
+//
+//
+//
+//  #LAYOUT
+//
+//
+//
+*******************************************************************************/
+
+@use '../_tools/functions' as functions;
+@use '../_tools/mixins' as mixins;
+
+@mixin layout() {
+    /***************************************************************************
+    //
+    //  #DIMENSIONS
+    //
+    ***************************************************************************/
+
+    // Default content width
+    & > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+        max-width: var(--wp--custom--layout--content);
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    // Wide content width
+    & > .alignwide {
+        max-width: var(--wp--custom--layout--wide);
+    }
+
+    // Full content width
+    & > .alignfull {
+        max-width: none;
+    }
+
+    // Constraint content width
+    &
+        > .is-layout-constrained
+        > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+        max-width: calc(
+            var(--wp--style--global--content-size) - var(
+                    --wp--style--root--padding-right
+                ) - var(--wp--style--root--padding-left)
+        );
+    }
+
+    /***************************************************************************
+    //
+    //  #SPACING
+    //
+    ***************************************************************************/
+
+    /***************************************************************************
+    //  #GROUP
+    ***************************************************************************/
+    & > * {
+        // Default spacing for first group
+        &:first-child {
+            padding-top: var(--wp--preset--spacing--2-x-large) !important;
+        }
+
+        &.wp-block-group {
+            // Default spacing for all groups after the first
+            padding-top: var(--wp--preset--spacing--4-x-large);
+            margin-block-start: 0;
+
+            // Default spacing for all groups with a background
+            &.has-background {
+                margin-block-start: var(--wp--preset--spacing--4-x-large);
+                padding-bottom: var(--wp--preset--spacing--4-x-large);
+            }
+
+            // Default spacing for all child groups
+            & > * {
+                &.wp-block-group {
+                    &:not(:first-child) {
+                        padding-top: var(--wp--preset--spacing--x-large);
+                        margin-block-start: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    /***************************************************************************
+    //  #CONTENT
+    ***************************************************************************/
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    dd,
+    dl,
+    ol,
+    ul {
+        padding: 0;
+        margin: 0;
+
+        & + * {
+            margin-block-start: var(--flow-space, 1em);
+        }
+    }
+
+    blockquote,
+    figure {
+        padding: 0;
+        margin: 0;
+
+        &:not(:first-child) {
+            margin-block-start: var(--flow-space, 2rem);
+        }
+
+        & + *:not(div) {
+            margin-block-start: var(--flow-space, 2rem);
+        }
+    }
+
+    .wp-block-buttons {
+        --flow-space: var(--wp--preset--spacing--large);
+    }
+}
